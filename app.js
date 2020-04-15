@@ -17,7 +17,7 @@ const employeeArr = [];
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
-async questionPrompts() => {
+const questionPrompts = async () => {
     try {
         let response = await inquirer.prompt([
             {
@@ -83,11 +83,12 @@ async questionPrompts() => {
             ]);
             //store intern info and push to employeeArr
             const intern = new Intern(response.name, response.email, response.id, response2.school);
+            employeeArr.push(intern);
         }
         
     console.log(employeeArr);
-    // need to add functionality so user can keep adding employees
 
+    // need to add functionality so user can keep adding employees
     let response3 = await inquirer.prompt([
         {
             type: "list",
@@ -100,21 +101,27 @@ async questionPrompts() => {
             ]
         }
     ]);
-
+    // need to add functionality so user can exit out of inquirer when done
     if(response3.complete === "Yes") {
         return;
     }
         
     } catch (e) {
-        console.log("Error!" + e)
+        console.log("Error with Question Prompts!" + e);
     }
 }
 
-questionPrompts();
-​
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!
+
+const render = async () => {
+    try {
+
+    } catch (e) {
+        console.log("Error with render!" + e);
+    }
+}
 ​
 // After you have your html, you're now ready to create an HTML file using the HTML
 // returned from the `render` function. Now write it to a file named `team.html` in the
