@@ -7,7 +7,7 @@ const fs = require("fs");
 const util = require("util");
 const writeFileAsync = util.promisify(fs.writeFile);
 const appendFileAsync = util.promisify(fs.appendFile);
-const OUTPUT_DIR = path.resolve(__dirname, "output")
+const OUTPUT_DIR = path.resolve(/output, "output") // is the path here correct?
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 const render = require("./lib/htmlRenderer");
 ​
@@ -110,17 +110,19 @@ const questionPrompts = async () => {
     }
 }
 
+questionPrompts();
+
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!
 
-const render = async () => {
-    try {
+// const render = async () => {
+//     try {
 
-    } catch (e) {
-        console.log("Error with render!" + e);
-    }
-}
+//     } catch (e) {
+//         console.log("Error with render!" + e);
+//     }
+// }
 ​
 // After you have your html, you're now ready to create an HTML file using the HTML
 // returned from the `render` function. Now write it to a file named `team.html` in the
