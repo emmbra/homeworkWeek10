@@ -54,23 +54,23 @@ const questionPrompts = async () => {
             response2 = await inquirer.prompt([
                 {
                     type: "input",
-                    name: "phonenumber",
+                    name: "officeNumber",
                     message: "What is the Manager's phone number?"
                 }
             ]);
             //store manager info and push to employeeArr
-            const manager = new Manager(response.name, response.email, response.id, response2.phonenumber);
+            const manager = new Manager(response.name, response.email, response.id, response2.officeNumber);
             employeeArr.push(manager);
         } else if (response.role === "Engineer") {
             response2 = await inquirer.prompt([
                 {
                     type: "input",
-                    name: "githubusername",
+                    name: "githubUsername",
                     message: "What is the Engineer's GitHub username?"
                 }
             ]);
             //store engineer info and push to employeeArr
-            const engineer = new Engineer(response.name, response.email, response.id, response2.githubusername);
+            const engineer = new Engineer(response.name, response.email, response.id, response2.githubUsername);
             employeeArr.push(engineer);
         } else if (response.role === "Intern") {
             response2 = await inquirer.prompt([
