@@ -4,15 +4,113 @@ const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
-​
+const util = require("util");
+const writeFileAsync = util.promisify(fs.writeFile);
+const appendFileAsync = util.promisify(fs.appendFile);
 const OUTPUT_DIR = path.resolve(__dirname, "output")
 const outputPath = path.join(OUTPUT_DIR, "team.html");
-​
 const render = require("./lib/htmlRenderer");
 ​
+const employeeArr = [];
+
 ​
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
+
+async questionPrompts() => {
+    try {
+        let response = await inquirer.prompt([
+            {
+                type: "list",
+                name: "role"
+                message: "What is the employee's role?"
+                choices: 
+                [
+                    "Manager",
+                    "Engineer",
+                    "Intern"
+                ]
+            },
+            {
+                type: "input",
+                name: "name"
+                message: "What is the employee's name?"
+            },
+            {
+                type: "input",
+                name: "email",
+                message: "What is the employee's email?"
+            },
+            {
+                type: "input",
+                name: "id",
+                message: "What is the employee's id number?"
+            }
+        ]);
+
+        let response2 = "";
+
+        // if statements to ask more prompts based on employee roles
+        if(response.role === "Manager") {
+            response2 = await inquirer.prompt([
+                {
+                    type: "input",
+                    name: "phonenumber",
+                    message: "What is the Manager's phone number?"
+                }
+            ]);
+            //store manager info and push to employeeArr
+            const manager = new Manager(response.name, response.email, response.id, response2.phonenumber);
+            employeeArr.push(manager);
+        } else if (response.role === "Engineer") {
+            response2 = await inquirer.prompt([
+                {
+                    type: "input",
+                    name: "githubusername",
+                    message: "What is the Engineer's GitHub username?"
+                }
+            ]);
+            //store engineer info and push to employeeArr
+            const engineer = new Engineer(response.name, response.email, response.id, response2.githubusername);
+            employeeArr.push(engineer);
+        } else if (response.role === "Intern") {
+            response2 = await inquirer.prompt([
+                {
+                    type: "input",
+                    name: "school",
+                    message: "What is the Intern's school?"
+                }
+            ]);
+            //store intern info and push to employeeArr
+            const intern = new Intern(response.name, response.email, response.id, response2.school);
+        }
+        
+    console.log(employeeArr);
+    // need to add functionality so user can keep adding employees
+
+    let response3 = await inquirer.prompt([
+        {
+            type: "list",
+            name: "complete",
+            message: "Do you want to add any more employees to your team?",
+            choices: 
+            [
+                "Yes",
+                "No"
+            ]
+        }
+    ]);
+
+    if(response3.complete === "Yes") {
+        return;
+    }
+        
+    } catch (e) {
+        console.log("Error!" + e)
+    }
+}
+
+questionPrompts();
 ​
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
