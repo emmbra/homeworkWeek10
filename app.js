@@ -13,7 +13,6 @@ const render = require("./lib/htmlRenderer");
 ​
 const employeeArr = [];
 
-​
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
@@ -92,7 +91,7 @@ const questionPrompts = async () => {
     let response3 = await inquirer.prompt([
         {
             type: "list",
-            name: "complete",
+            name: "continue",
             message: "Do you want to add any more employees to your team?",
             choices: 
             [
@@ -102,7 +101,7 @@ const questionPrompts = async () => {
         }
     ]);
     // need to add functionality so user can exit out of inquirer when done
-    if(response3.complete === "Yes") {
+    if(response3.continue === "No") {
         return;
     }
         
