@@ -1,6 +1,16 @@
 h1 {
-font-family: 'Lobster', cursive;
-color: white;
+    font-family: 'Lobster', cursive;
+    color: white;
+}
+
+h2 {
+    font-family: 'Lobster', cursive;
+    color: black;  
+}
+
+h3 {
+    font-family: 'Lobster', cursive;
+    color: black;  
 }
 
 .jumbotron {
