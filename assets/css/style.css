@@ -1,0 +1,12 @@
+h1 {
+font-family: 'Lobster', cursive;
+color: white;
+}
+
+.jumbotron {
+    background-color: black;
+}
+
+#bg {
+    background-image: url(../img/background-img.jpg);
+}

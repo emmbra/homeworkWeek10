@@ -13,30 +13,6 @@ const render = require("./lib/htmlRenderer");
 
 const employeeArr = [];
 
-const check = {
-    required: value => value ? undefined : 'Required',
-    minLength: min => value => value && value.length < min ? `Must be ${min} characters or more` : undefined,
-    maxLength: max => value => value && value.length > max ? `Must be ${max} characters or less` : undefined,
-    minValue: min => value => value && value < min ? `Must be at least ${min}` : undefined,
-    maxValue: max => value => value && value > max ? `Must be no more than ${max}` : undefined,
-    number: value => value && isNaN(Number(value)) ? 'Must be a number' : undefined,
-    email: value => value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ? 'Invalid email address' : undefined,
-    tooOld: value => value && value > 65 ? 'You might be too old for this' : undefined,
-    isEmail: value => value && validator.isEmail(value),
-    isPhone: value => value && validator.isMobilePhone(value),
-    isMongoId: value => value && validator.isMongoId(value),
-    isPostalCode: value => value && validator.isPostalCode(value),
-    isPureNum: value => value && validator.isNumeric(value, { no_symbols: true }),
-    isNum: value => value && validator.isNumeric(value),
-    escape: input => input && validator.escape(input),
-    unescape: input => input && validator.unescape(input),
-    toDate: input => input && validator.toDate(input),
-    toBoolean: input => input && validator.toBoolean(input),
-    normalizeEmail: email => email && validator.normalizeEmail(email),
-    is18: (day, month, year) => new Date(year+18, month-1, day) <= new Date() ? undefined : 'You must be at least 18 years old',
-    is21: (day, month, year) => new Date(year+21, month-1, day) <= new Date() ? undefined : 'You must be at least 21 years old',
-  };
-
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
@@ -47,8 +23,7 @@ const mainMenu = async () => {
         type: "list",
         name: "choices",
         message: "What would you like to do?",
-        choices: ["Add an employee", "Build your team"],
-        validate: [check.required, check.escape]
+        choices: ["Add an employee", "Generate team.html page"]
       }
     ]);
     if (response.choices === "Add an employee") {
@@ -80,14 +55,14 @@ const questionPrompts = async () => {
       },
       {
         type: "input",
-        name: "email",
-        message: "What is the employee's email?",
-      },
-      {
-        type: "input",
         name: "id",
         message: "What is the employee's id number?",
       },
+      {
+        type: "input",
+        name: "email",
+        message: "What is the employee's email?",
+      }
     ]);
 
     let response2 = "";
@@ -104,8 +79,8 @@ const questionPrompts = async () => {
       //store manager info and push to employeeArr
       const manager = new Manager(
         response.name,
-        response.email,
         response.id,
+        response.email,
         response2.officeNumber
       );
       employeeArr.push(manager);
@@ -113,16 +88,16 @@ const questionPrompts = async () => {
       response2 = await inquirer.prompt([
         {
           type: "input",
-          name: "githubUsername",
+          name: "github",
           message: "What is the Engineer's GitHub username?",
         },
       ]);
       //store engineer info and push to employeeArr
       const engineer = new Engineer(
         response.name,
-        response.email,
         response.id,
-        response2.githubUsername
+        response.email,
+        response2.github
       );
       employeeArr.push(engineer);
     } else if (response.role === "Intern") {
@@ -136,8 +111,8 @@ const questionPrompts = async () => {
       //store intern info and push to employeeArr
       const intern = new Intern(
         response.name,
-        response.email,
         response.id,
+        response.email,
         response2.school
       );
       employeeArr.push(intern);
