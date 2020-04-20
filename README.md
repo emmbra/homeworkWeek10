@@ -47,7 +47,7 @@ Difficulties included:
 
 ## Screenshots
 
-![GIF of Template Engine: Employee Summary]()
+![GIF of Template Engine: Employee Summary](https://github.com/emmbra/homeworkWeek10/blob/master/assets/img/EmployeeSummaryDemo.gif)
 
 ## Credits
 
